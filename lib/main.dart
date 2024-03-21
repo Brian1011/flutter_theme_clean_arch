@@ -14,15 +14,14 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final themeState = ref.read(asyncThemeNotifierProvider);
+    print('Theme state: $themeState');
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeState.when(
-          data: (theme) => theme == ThemeMode.dark
-              ? ThemeData.dark()
-              : ThemeData.light(),
+          data: (theme) =>
+              theme == ThemeMode.dark ? ThemeData.dark() : ThemeData.light(),
           error: (error, stackTrace) => ThemeData.light(),
-          loading: () => ThemeData.light()
-      ),
+          loading: () => ThemeData.light()),
       home: const HomeScreen(),
     );
   }
