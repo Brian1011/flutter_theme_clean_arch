@@ -1,22 +1,29 @@
+import 'package:dynamic_theme/features/theme/presentation/home_screen.dart';
+import 'package:dynamic_theme/features/theme/providers/providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends ConsumerWidget {
   const MyApp({super.key});
 
   // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final themeState = ref.read(asyncThemeNotifierProvider);
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+      theme: themeState.when(
+          data: (theme) => theme == ThemeMode.dark
+              ? ThemeData.dark()
+              : ThemeData.light(),
+          error: (error, stackTrace) => ThemeData.light(),
+          loading: () => ThemeData.light()
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const HomeScreen(),
     );
   }
 }
