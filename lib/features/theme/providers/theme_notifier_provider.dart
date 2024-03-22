@@ -1,9 +1,8 @@
 import 'dart:async';
 
+import 'package:dynamic_theme/features/theme/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'theme_provider.dart';
 
 final asyncThemeNotifierProvider =
     AsyncNotifierProvider<AsyncThemeNotifier, ThemeMode>(() {
@@ -19,7 +18,7 @@ class AsyncThemeNotifier extends AsyncNotifier<ThemeMode> {
 
   Future<void> _loadTheme() async {
     state = const AsyncValue.loading();
-    final theme = await ref.watch(themeProviderRepository).getTheme();
+    final theme = await ref.read(getThemeUseCaseProvider).call();
     state = AsyncValue.data(theme);
   }
 
@@ -30,7 +29,7 @@ class AsyncThemeNotifier extends AsyncNotifier<ThemeMode> {
         currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     state = const AsyncValue.loading();
     try {
-      await ref.watch(themeProviderRepository).setTheme(newTheme);
+      await ref.read(setThemeUseCaseProvider).call(newTheme);
       state = AsyncValue.data(newTheme);
     } catch (e) {
       state = AsyncValue.error(e, StackTrace.current);

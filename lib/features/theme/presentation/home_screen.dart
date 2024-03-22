@@ -22,9 +22,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               icon: const Icon(Icons.brightness_6),
               onPressed: () {
                 ref.read(asyncThemeNotifierProvider.notifier).toggleTheme();
-                print('Theme toggled');
-                print(
-                    'Theme state: ${ref.read(asyncThemeNotifierProvider).asData?.value}');
               },
             )
           ],
