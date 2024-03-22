@@ -8,7 +8,6 @@ class SharedPreferencesStorageService implements StorageService {
   Future<ThemeMode> getTheme() async {
     final prefs = await SharedPreferences.getInstance();
     final theme = prefs.getString('theme');
-    print('Shared preference theme: $theme');
     if (theme == 'ThemeMode.dark') {
       return ThemeMode.dark;
     } else {

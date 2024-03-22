@@ -26,7 +26,6 @@ class AsyncThemeNotifier extends AsyncNotifier<ThemeMode> {
   Future<void> _loadTheme() async {
     state = const AsyncValue.loading();
     final theme = await ref.watch(themeProviderRepository).getTheme();
-    print('Theme loaded: $theme');
     state = AsyncValue.data(theme);
   }
 
