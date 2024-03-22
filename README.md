@@ -35,7 +35,7 @@ It contains the repositories that the app will use to get the data.
 - Riverpod
 - Shared Preferences
 
-## Flutter Version
+## Flutter Version Used
 - 3.16.6 
 
 ## Author
