@@ -11,32 +11,30 @@ final themeProviderRepository = Provider((ref) {
   return ThemeRepositoryImpl(storageService);
 });
 
-final asyncThemeNotifierProvider = AsyncNotifierProvider<AsyncThemeNotifier, ThemeMode>(() {
+final asyncThemeNotifierProvider =
+    AsyncNotifierProvider<AsyncThemeNotifier, ThemeMode>(() {
   return AsyncThemeNotifier();
 });
 
 class AsyncThemeNotifier extends AsyncNotifier<ThemeMode> {
-  AsyncThemeNotifier() {
-    _loadTheme();
-  }
-
   @override
   ThemeMode build() {
+    _loadTheme();
     return state.value ?? ThemeMode.system;
   }
 
   Future<void> _loadTheme() async {
     state = const AsyncValue.loading();
     final theme = await ref.watch(themeProviderRepository).getTheme();
+    print('Theme loaded: $theme');
     state = AsyncValue.data(theme);
   }
 
   Future<void> toggleTheme() async {
     final currentTheme = state.value;
     if (currentTheme == null) return;
-    final newTheme = currentTheme == ThemeMode.light
-        ? ThemeMode.dark
-        : ThemeMode.light;
+    final newTheme =
+        currentTheme == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     state = const AsyncValue.loading();
     try {
       await ref.watch(themeProviderRepository).setTheme(newTheme);

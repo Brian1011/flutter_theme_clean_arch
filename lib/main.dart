@@ -13,8 +13,9 @@ class MyApp extends ConsumerWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final themeState = ref.read(asyncThemeNotifierProvider);
+    final themeState = ref.watch(asyncThemeNotifierProvider);
     print('Theme state: $themeState');
+
     return MaterialApp(
       title: 'Flutter Demo',
       theme: themeState.when(
