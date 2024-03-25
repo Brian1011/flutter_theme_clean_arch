@@ -2,9 +2,8 @@
 This is a simple example of how to change the theme of your Flutter app using Riverpod and Shared Preferences.
 It utilises clean architecture principles.
 
-## Screenshots
-![Screenshot 1]()
-![Screenshot 2]()
+## Demo
+![Video demo](https://github.com/Brian1011/flutter_theme_clean_arch/blob/main/assets/theme_change_video.gif)
 
 ## Getting Started
 This project is a starting point for a Flutter application.
